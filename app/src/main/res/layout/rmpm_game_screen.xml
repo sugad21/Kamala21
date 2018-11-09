@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/firstPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imagePlayer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/honor_diamond" />
+
+            <TextView
+                android:id="@+id/numCardsP1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:text="13"
+                android:textSize="30dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/secondPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imagePlayer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/honor_spade" />
+
+            <TextView
+                android:id="@+id/numCardsP2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:text="13"
+                android:textSize="30dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/thirdPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imagePlayer3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/honor_heart" />
+
+            <TextView
+                android:id="@+id/numCardsP3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:text="13"
+                android:textSize="30dp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fourthPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imagePlayer4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/honor_club" />
+
+            <TextView
+                android:id="@+id/numCardsP4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:text="13"
+                android:textSize="30dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fifthPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imagePlayer5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/honor_diamond"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/numCardsP5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:text="13"
+                android:textSize="30dp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/currentPlayerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Player: "
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/passTurnButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Pass"
+                android:textSize="60dp" />
+        </FrameLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6">
+
+            <ImageView
+                android:id="@+id/currentSet0"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:src="@drawable/seven_spades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/currentSet1"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:src="@drawable/seven_spades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/currentSet2"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="130dp"
+                android:src="@drawable/seven_spades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/currentSet3"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="160dp"
+                android:src="@drawable/seven_spades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/currentSet4"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="190dp"
+                android:src="@drawable/seven_spades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/currentSet5"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="220dp"
+                android:src="@drawable/seven_spades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/currentSet6"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="250dp"
+                android:src="@drawable/seven_spades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/currentSet7"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:src="@drawable/seven_spades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/currentSet8"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="310dp"
+                android:src="@drawable/seven_spades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/currentSet9"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="340dp"
+                android:src="@drawable/seven_spades"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/playSetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Play"
+                android:textSize="60dp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/card0"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card1"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card2"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="132dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card3"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="184dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card4"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="236dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card5"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="288dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card6"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="340dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card7"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="392dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card8"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="444dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card9"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="496dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card10"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="548dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card11"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="600dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/card12"
+            android:layout_width="225dp"
+            android:layout_height="700dp"
+            android:layout_marginStart="652dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/seven_spades"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

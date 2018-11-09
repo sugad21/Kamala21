@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "447326147706",
+    "firebase_url": "https://kamala21-cf506.firebaseio.com",
+    "project_id": "kamala21-cf506",
+    "storage_bucket": "kamala21-cf506.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447326147706:android:5dc38a5c0d51be11",
+        "android_client_info": {
+          "package_name": "com.example.pele_.kamala21"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447326147706-kiml3b3490mu0ogqao9u564ljrdtm5q3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFGQBGB-ofwykszfrPaqG2I1zaj5KpcKY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

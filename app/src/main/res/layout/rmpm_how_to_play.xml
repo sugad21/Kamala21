@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/htpReturnButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/htpRulesText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:text="Rules" />
+
+        <TextView
+            android:id="@+id/rule1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1)  Play higher card/cards then current card/cards.  List from lowest to highest:" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/htpcard1"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/seven_spades" />
+
+            <ImageView
+                android:id="@+id/htpcard2"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/eight_clubs" />
+
+            <ImageView
+                android:id="@+id/htpcard3"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/nine_diamonds" />
+
+            <ImageView
+                android:id="@+id/htpcard4"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/ten_hearts" />
+
+            <ImageView
+                android:id="@+id/htpcard5"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/jack_spades" />
+
+            <ImageView
+                android:id="@+id/htpcard6"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/queen_clubs" />
+
+            <ImageView
+                android:id="@+id/htpcard7"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/king_diamonds" />
+
+            <ImageView
+                android:id="@+id/htpcard8"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/ace_hearts" />
+
+            <ImageView
+                android:id="@+id/htpcard9"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/two_spades" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/rule2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2)  Must play same number of cards as current set" />
+
+        <TextView
+            android:id="@+id/rule3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3)  Last person to play a card can start a new set if it is their turn again." />
+
+        <TextView
+            android:id="@+id/rule4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="4)  Playing same value card/cards skips next players turn." />
+
+        <TextView
+            android:id="@+id/rule5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5)  Wild cards can be any value.  List of Wild Cards:" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/htpcard10"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/four_spades" />
+
+            <ImageView
+                android:id="@+id/htpcard11"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/five_clubs" />
+
+            <ImageView
+                android:id="@+id/htpcard12"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/six_diamonds" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/rule6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="6)  Bomb cards clear current set.  Bomb Card:" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/htpcard13"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:src="@drawable/three_hearts" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/rule7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="7)  First person to get rid of cards becomes RICH MAN." />
+
+        <TextView
+            android:id="@+id/rule8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="8)  Last person to have cards becomes POOR MAN." />
+
+        <TextView
+            android:id="@+id/rule9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="9)  Poor man gives rich man their two best cards, and rich man gives poor man two worst cards." />
+
+        <TextView
+            android:id="@+id/rule10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10)  If no poor man, 7 of Spades starts." />
+    </LinearLayout>
+
+</LinearLayout>
