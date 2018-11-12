@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class lmwActivity extends Activity implements ValueEventListener{
+public class lmwActivity extends Activity implements ValueEventListener {
     int numAiInt;
     int numHumanInt;
     int playerIndex;
@@ -29,7 +29,7 @@ public class lmwActivity extends Activity implements ValueEventListener{
     DatabaseReference numAiRef;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rmpm_wait_screen);
 
@@ -43,28 +43,35 @@ public class lmwActivity extends Activity implements ValueEventListener{
         numPlayersRef = lobbyRef.child("totalNumberOfPlayers");
         numHumanRef = lobbyRef.child("numHumans");
         numAiRef = lobbyRef.child("numAi");
+        if (playerIndex != 0) {
+            numHumanRef.setValue(playerIndex);
+        }
         lobbyRef.addValueEventListener(this);
     }
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        if(playerIndex == 0){
-            if(dataSnapshot.child("numAi").getValue(Integer.class) + dataSnapshot.child("numHumans").getValue(Integer.class)
-                    + 1 == dataSnapshot.child("totalNumberOfPlayers").getValue(Integer.class)){
-                RmPmGameState instance = new RmPmGameState(numAiInt+numHumanInt+1);
+        numAiInt = dataSnapshot.child("numAi").getValue(Integer.class);
+        numHumanInt = dataSnapshot.child("numHumans").getValue(Integer.class);
+
+        if (playerIndex == 0) {
+            if (numAiInt + numHumanInt + 1 == dataSnapshot.child("totalNumberOfPlayers").getValue(Integer.class)) {
+                RmPmGameState instance = new RmPmGameState(numAiInt + numHumanInt + 1);
                 gameStateRef.setValue(instance);
-                Intent lmgsIntent = new Intent(this, lmgsActivity.class);
-                lmgsIntent.putExtra("playerIndex", 0);
-                startActivity(lmgsIntent);
+                Intent lmgsStartIntent = new Intent(this, lmgsActivity.class);
+                lmgsStartIntent.putExtra("playerIndex", 0);
+                lmgsStartIntent.putExtra("numHumans", numHumanInt);
+                startActivity(lmgsStartIntent);
                 finish();
             }
-        }
-        if(dataSnapshot.child("numAi").getValue(Integer.class) + dataSnapshot.child("numHumans").getValue(Integer.class)
-                + 1 == dataSnapshot.child("totalNumberOfPlayers").getValue(Integer.class)){
-            Intent lmgsJoinIntent = new Intent(this, lmgsActivity.class);
-            lmgsJoinIntent.putExtra("playerIndex", playerIndex);
-            startActivity(lmgsJoinIntent);
-            finish();
+        } else {
+            if (dataSnapshot.child("numAi").getValue(Integer.class) + dataSnapshot.child("numHumans").getValue(Integer.class)
+                    + 1 == dataSnapshot.child("totalNumberOfPlayers").getValue(Integer.class)) {
+                Intent lmgsJoinIntent = new Intent(this, lmgsActivity.class);
+                lmgsJoinIntent.putExtra("playerIndex", playerIndex);
+                startActivity(lmgsJoinIntent);
+                finish();
+            }
         }
     }
 

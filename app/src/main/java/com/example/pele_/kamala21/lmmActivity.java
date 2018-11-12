@@ -72,24 +72,13 @@ public class lmmActivity extends Activity implements  View.OnClickListener{
         gameStateRef = database.getReference().child("localMultiPlayerGameState");
 
         numPlayersRef = lobbyRef.child("totalNumberOfPlayers");
-        numPlayersRef.setValue(Integer.toString(numHumanInt+1));
+        numPlayersRef.setValue(numHumanInt+1);
         diffAIRef = lobbyRef.child("intelligence");
         diffAIRef.setValue("dumb");
         numHumanRef = lobbyRef.child("numHumans");
         numHumanRef.setValue(numHumanInt);
         numAiRef = lobbyRef.child("numAi");
         numAiRef.setValue(numAiInt);
-        numPlayersRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                playerIndex = Integer.parseInt(dataSnapshot.getValue(String.class))+1;
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
@@ -102,15 +91,9 @@ public class lmmActivity extends Activity implements  View.OnClickListener{
                 break;
             case R.id.lmmStartServerButton:
                 numHumanRef.setValue(0);
-                Intent lmgsIntent = new Intent(this, lmgsActivity.class);
+                Intent lmgsIntent = new Intent(this, lmwActivity.class);
                 lmgsIntent.putExtra("playerIndex", 0);
                 startActivity(lmgsIntent);
-                finish();
-                break;
-            case R.id.lmmJoinButton:
-                Intent lmgsJoinIntent = new Intent(this, lmgsActivity.class);
-                lmgsJoinIntent.putExtra("playerIndex", playerIndex);
-                startActivity(lmgsJoinIntent);
                 finish();
                 break;
             case R.id.lmmIncreaseButton:
@@ -126,7 +109,7 @@ public class lmmActivity extends Activity implements  View.OnClickListener{
                     numAiInt++;
                     numBots.setText(Integer.toString(numAiInt));
                     numAiRef.setValue(numAiInt);
-                    numPlayersRef.setValue(Integer.toString(numAiInt+numHumanInt+1));
+                    numPlayersRef.setValue(numAiInt+numHumanInt+1);
                 }
                 break;
             case R.id.lmmRemoveButton:
@@ -134,7 +117,7 @@ public class lmmActivity extends Activity implements  View.OnClickListener{
                     numAiInt--;
                     numBots.setText(Integer.toString(numAiInt));
                     numAiRef.setValue(numAiInt);
-                    numPlayersRef.setValue(Integer.toString(numAiInt+numHumanInt+1));
+                    numPlayersRef.setValue(numAiInt+numHumanInt+1);
                 }
                 break;
             case R.id.lmmAddHumanButton:
@@ -142,7 +125,7 @@ public class lmmActivity extends Activity implements  View.OnClickListener{
                     numHumanInt++;
                     numHumans.setText(Integer.toString(numHumanInt));
                     numHumanRef.setValue(numHumanInt);
-                    numPlayersRef.setValue(Integer.toString(numAiInt+numHumanInt+1));
+                    numPlayersRef.setValue(numAiInt+numHumanInt+1);
                 }
                 break;
             case R.id.lmmRemoveHumanButton:
@@ -150,7 +133,7 @@ public class lmmActivity extends Activity implements  View.OnClickListener{
                     numHumanInt--;
                     numHumans.setText(Integer.toString(numHumanInt));
                     numHumanRef.setValue(numHumanInt);
-                    numPlayersRef.setValue(Integer.toString(1));
+                    numPlayersRef.setValue(numAiInt+numHumanInt+1);
                 }
                 break;
             default:

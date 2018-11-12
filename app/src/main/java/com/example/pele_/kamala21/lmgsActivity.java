@@ -63,6 +63,7 @@ public class lmgsActivity extends Activity implements View.OnClickListener, Valu
 
     int count;
     int playerIndex;
+    int numHumans;
     String intelligence;
 
     @Override
@@ -70,8 +71,8 @@ public class lmgsActivity extends Activity implements View.OnClickListener, Valu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rmpm_game_screen);
 
-        playerIndex = 0;
         playerIndex = getIntent().getIntExtra("playerIndex", -1);
+        numHumans = getIntent().getIntExtra("numHumans", 0);
         count = 0;
         card0 = (ImageButton) findViewById(R.id.card0);
         card0.setOnClickListener(this);
@@ -125,8 +126,8 @@ public class lmgsActivity extends Activity implements View.OnClickListener, Valu
         currentSet8 = (ImageView) findViewById(R.id.currentSet8);
         currentSet9 = (ImageView) findViewById(R.id.currentSet9);
         database = FirebaseDatabase.getInstance();
-        gameStateRef = database.getReference().child("singlePlayerGameState");
-        lobbyRef = database.getReference().child("singlePlayerLobby");
+        gameStateRef = database.getReference().child("localMultiPlayerGameState");
+        lobbyRef = database.getReference().child("localMultiPlayerLobby");
         lobbyRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -152,6 +153,10 @@ public class lmgsActivity extends Activity implements View.OnClickListener, Valu
                 RmPmGameState updatedInstance = new RmPmGameState(instance);
                 gameStateRef.setValue(updatedInstance);
                 recreate();
+            }
+            if(instance.getCurrentPlayer() > numHumans){
+                instance.dumbAi(instance.getCurrentPlayer());
+                gameStateRef.setValue(instance);
             }
         }
     }
@@ -454,30 +459,43 @@ public class lmgsActivity extends Activity implements View.OnClickListener, Valu
         });
         int i = instance.getPlayers().get(playerIndex).getHand().size();
         if (i > 0) {
+            card0.setVisibility(View.VISIBLE);
             card0.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(0).getCardName(), "drawable", getPackageName()));
             if (i > 1) {
+                card1.setVisibility(View.VISIBLE);
                 card1.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(1).getCardName(), "drawable", getPackageName()));
                 if (i > 2) {
+                    card2.setVisibility(View.VISIBLE);
                     card2.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(2).getCardName(), "drawable", getPackageName()));
                     if (i > 3) {
+                        card3.setVisibility(View.VISIBLE);
                         card3.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(3).getCardName(), "drawable", getPackageName()));
                         if (i > 4) {
+                            card4.setVisibility(View.VISIBLE);
                             card4.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(4).getCardName(), "drawable", getPackageName()));
                             if (i > 5) {
+                                card5.setVisibility(View.VISIBLE);
                                 card5.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(5).getCardName(), "drawable", getPackageName()));
                                 if (i > 6) {
+                                    card6.setVisibility(View.VISIBLE);
                                     card6.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(6).getCardName(), "drawable", getPackageName()));
                                     if (i > 7) {
+                                        card7.setVisibility(View.VISIBLE);
                                         card7.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(7).getCardName(), "drawable", getPackageName()));
                                         if (i > 8) {
+                                            card8.setVisibility(View.VISIBLE);
                                             card8.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(8).getCardName(), "drawable", getPackageName()));
                                             if (i > 9) {
+                                                card9.setVisibility(View.VISIBLE);
                                                 card9.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(9).getCardName(), "drawable", getPackageName()));
                                                 if (i > 10) {
+                                                    card10.setVisibility(View.VISIBLE);
                                                     card10.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(10).getCardName(), "drawable", getPackageName()));
                                                     if (i > 11) {
+                                                        card11.setVisibility(View.VISIBLE);
                                                         card11.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(11).getCardName(), "drawable", getPackageName()));
                                                         if (i > 12) {
+                                                            card12.setVisibility(View.VISIBLE);
                                                             card12.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(12).getCardName(), "drawable", getPackageName()));
                                                         }
                                                     }

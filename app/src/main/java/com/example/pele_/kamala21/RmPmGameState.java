@@ -245,6 +245,7 @@ public class RmPmGameState {
         if (playerIndex != currentPlayer) {
             return false;
         }
+        playerSet.clear();
         nextPlayer();
         while (players.get(currentPlayer).getHand().size() < 1) {
             nextPlayer();
@@ -348,6 +349,14 @@ public class RmPmGameState {
             } else {
                 j = 0;
             }
+        }
+    }
+
+    public void dumbAi(int playerIndex){
+        if(this.selectCard(playerIndex, 0)){
+            this.playSet(playerIndex);
+        } else{
+            passTurn(playerIndex);
         }
     }
 }

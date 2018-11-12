@@ -152,9 +152,9 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
             recreate();
         }
         if(instance.getCurrentPlayer() != playerIndex){
-            instance.nextPlayer();
+            instance.dumbAi(instance.getCurrentPlayer());
             gameStateRef.setValue(instance);
-        }
+        } //skips over ai
     }
 
     @Override
