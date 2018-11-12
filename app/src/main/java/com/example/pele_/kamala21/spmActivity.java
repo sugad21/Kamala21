@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
 
 public class spmActivity extends Activity implements  View.OnClickListener{
     Button returnButton;
@@ -51,11 +49,11 @@ public class spmActivity extends Activity implements  View.OnClickListener{
         numInt = 3;
 
         database = FirebaseDatabase.getInstance();
-        lobbyRef = database.getReference().child("SinglePlayerLobby");
-        gameStateRef = database.getReference().child("GameState");
-        numPlayersRef = lobbyRef.child("Number of Players");
+        lobbyRef = database.getReference().child("singlePlayerLobby");
+        gameStateRef = database.getReference().child("singlePlayerGameState");
+        numPlayersRef = lobbyRef.child("numberOfPlayers");
         numPlayersRef.setValue(Integer.toString(numInt+1));
-        diffAIRef = lobbyRef.child("AI Intelligence");
+        diffAIRef = lobbyRef.child("intelligence");
         diffAIRef.setValue("dumb");
     }
 

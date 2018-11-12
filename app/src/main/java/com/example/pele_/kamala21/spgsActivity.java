@@ -1,30 +1,22 @@
 package com.example.pele_.kamala21;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class spgsActivity extends Activity implements View.OnClickListener, ValueEventListener {
     RmPmGameState instance;
@@ -66,10 +58,12 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
     ImageView currentSet9;
 
     FirebaseDatabase database;
+    DatabaseReference lobbyRef;
     DatabaseReference gameStateRef;
 
     int count;
     int playerIndex;
+    String intelligence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,11 +108,11 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
         numCards3 = (TextView) findViewById(R.id.numCardsP3);
         numCards4 = (TextView) findViewById(R.id.numCardsP4);
         numCards5 = (TextView) findViewById(R.id.numCardsP5);
-        firstPlayer = (FrameLayout)findViewById(R.id.firstPlayer);
-        secondPlayer = (FrameLayout)findViewById(R.id.secondPlayer);
-        thirdPlayer = (FrameLayout)findViewById(R.id.thirdPlayer);
-        fourthPlayer = (FrameLayout)findViewById(R.id.fourthPlayer);
-        fifthPlayer = (FrameLayout)findViewById(R.id.fifthPlayer);
+        firstPlayer = (FrameLayout) findViewById(R.id.firstPlayer);
+        secondPlayer = (FrameLayout) findViewById(R.id.secondPlayer);
+        thirdPlayer = (FrameLayout) findViewById(R.id.thirdPlayer);
+        fourthPlayer = (FrameLayout) findViewById(R.id.fourthPlayer);
+        fifthPlayer = (FrameLayout) findViewById(R.id.fifthPlayer);
         currentSet0 = (ImageView) findViewById(R.id.currentSet0);
         currentSet1 = (ImageView) findViewById(R.id.currentSet1);
         currentSet2 = (ImageView) findViewById(R.id.currentSet2);
@@ -130,9 +124,19 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
         currentSet8 = (ImageView) findViewById(R.id.currentSet8);
         currentSet9 = (ImageView) findViewById(R.id.currentSet9);
         database = FirebaseDatabase.getInstance();
+        gameStateRef = database.getReference().child("singlePlayerGameState");
+        lobbyRef = database.getReference().child("singlePlayerLobby");
+        lobbyRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                intelligence = dataSnapshot.child("intelligence").getValue(String.class);
+            }
 
-        gameStateRef = database.getReference().child("GameState");
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
         gameStateRef.addValueEventListener(this);
     }
 
@@ -140,6 +144,17 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         instance = dataSnapshot.getValue(RmPmGameState.class);
         updateScreen();
+        if(instance.playersWithCards() < 2){
+            instance.reDeal();
+            instance.getCurrentSet().clear();
+            RmPmGameState updatedInstance = new RmPmGameState(instance);
+            gameStateRef.setValue(updatedInstance);
+            recreate();
+        }
+        if(instance.getCurrentPlayer() != playerIndex){
+            instance.nextPlayer();
+            gameStateRef.setValue(instance);
+        }
     }
 
     @Override
@@ -151,57 +166,267 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.card0:
-                /*if(card0.getColorFilter() == null){
-                    if(instance.selectCard(0)){
-                        card0.setColorFilter(R.color.neon_green);
+                if (card0.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 0)) {
+                        card0.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    if(instance.deselectCard(0)){
+                    if (instance.deselectCard(playerIndex, 0)) {
                         card0.setColorFilter(null);
                     }
-                }*/
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card1:
-
+                if (card1.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 1)) {
+                        card1.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 1)) {
+                        card1.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card2:
-
+                if (card2.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 2)) {
+                        card2.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 2)) {
+                        card2.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card3:
-
+                if (card3.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 3)) {
+                        card3.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 3)) {
+                        card3.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card4:
-
+                if (card0.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 4)) {
+                        card4.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 4)) {
+                        card4.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card5:
-
+                if (card5.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 5)) {
+                        card5.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 5)) {
+                        card5.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card6:
-
+                if (card6.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 6)) {
+                        card6.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 6)) {
+                        card6.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card7:
-
+                if (card7.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 7)) {
+                        card7.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 7)) {
+                        card7.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card8:
-
+                if (card8.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 8)) {
+                        card8.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 8)) {
+                        card8.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card9:
-
+                if (card9.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 9)) {
+                        card9.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 9)) {
+                        card9.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card10:
-
+                if (card10.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 10)) {
+                        card10.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 10)) {
+                        card10.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card11:
-
+                if (card11.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 11)) {
+                        card11.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 11)) {
+                        card11.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.card12:
-
+                if (card12.getColorFilter() == null) {
+                    if (instance.selectCard(playerIndex, 12)) {
+                        card12.setColorFilter(R.color.highlight);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (instance.deselectCard(playerIndex, 12)) {
+                        card12.setColorFilter(null);
+                    }
+                    else{
+                        Toast.makeText(getApplication().getApplicationContext(), "Invalid Move",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.playSetButton:
-
+                if (instance.playSet(playerIndex)) {
+                    RmPmGameState updatedInstance = new RmPmGameState(instance);
+                    gameStateRef.setValue(updatedInstance);
+                } //if the player plays a valid move it sends the updated game state to the online database
+                else{
+                    Toast.makeText(getApplication().getApplicationContext(), "Invalid Play / Not Your Turn",
+                            Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.passTurnButton:
-
+                if (instance.passTurn(playerIndex)) {
+                    RmPmGameState updatedInstance = new RmPmGameState(instance);
+                    gameStateRef.setValue(updatedInstance);
+                } //if the player does a valid pass it sends the updated game state to the online database
                 break;
             default:
                 break;
@@ -222,36 +447,39 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
         card10.setColorFilter(null);
         card11.setColorFilter(null);
         card12.setColorFilter(null);
+        Collections.sort(instance.getPlayers().get(playerIndex).getHand(), new Comparator<RmPmCard>() {
+            @Override
+            public int compare(RmPmCard o1, RmPmCard o2) {
+                return o1.getValue() - o2.getValue();
+            }
+        });
         int i = instance.getPlayers().get(playerIndex).getHand().size();
-        RmPmGameState instance1 = new RmPmGameState();
         if (i > 0) {
-            card0.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(0).getDrawable());
-            Log.i("firstcard", Integer.toString(instance.getPlayers().get(playerIndex).getHand().get(0).getDrawable()));
-            Log.i("firstcard", Integer.toString(instance1.getPlayers().get(playerIndex).getHand().get(0).getDrawable()));
+            card0.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(0).getCardName(), "drawable", getPackageName()));
             if (i > 1) {
-                card1.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(1).getDrawable());
+                card1.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(1).getCardName(), "drawable", getPackageName()));
                 if (i > 2) {
-                    card2.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(2).getDrawable());
+                    card2.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(2).getCardName(), "drawable", getPackageName()));
                     if (i > 3) {
-                        card3.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(3).getDrawable());
+                        card3.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(3).getCardName(), "drawable", getPackageName()));
                         if (i > 4) {
-                            card4.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(4).getDrawable());
+                            card4.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(4).getCardName(), "drawable", getPackageName()));
                             if (i > 5) {
-                                card5.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(5).getDrawable());
+                                card5.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(5).getCardName(), "drawable", getPackageName()));
                                 if (i > 6) {
-                                    card6.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(6).getDrawable());
+                                    card6.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(6).getCardName(), "drawable", getPackageName()));
                                     if (i > 7) {
-                                        card7.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(7).getDrawable());
+                                        card7.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(7).getCardName(), "drawable", getPackageName()));
                                         if (i > 8) {
-                                            card8.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(8).getDrawable());
+                                            card8.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(8).getCardName(), "drawable", getPackageName()));
                                             if (i > 9) {
-                                                card9.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(9).getDrawable());
+                                                card9.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(9).getCardName(), "drawable", getPackageName()));
                                                 if (i > 10) {
-                                                    card10.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(10).getDrawable());
+                                                    card10.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(10).getCardName(), "drawable", getPackageName()));
                                                     if (i > 11) {
-                                                        card11.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(11).getDrawable());
+                                                        card11.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(11).getCardName(), "drawable", getPackageName()));
                                                         if (i > 12) {
-                                                            card12.setImageResource(instance.getPlayers().get(playerIndex).getHand().get(12).getDrawable());
+                                                            card12.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(12).getCardName(), "drawable", getPackageName()));
                                                         }
                                                     }
                                                 }
@@ -265,32 +493,33 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
                 }
             }
         }
-        if(i < 13){
-        card12.setVisibility(View.INVISIBLE);
-        if (i < 12) {
-            card11.setVisibility(View.INVISIBLE);
-            if (i < 11) {
-                card10.setVisibility(View.INVISIBLE);
-                if (i < 10) {
-                    card9.setVisibility(View.INVISIBLE);
-                    if (i < 9) {
-                        card8.setVisibility(View.INVISIBLE);
-                        if (i < 8) {
-                            card7.setVisibility(View.INVISIBLE);
-                            if (i < 7) {
-                                card6.setVisibility(View.INVISIBLE);
-                                if (i < 6) {
-                                    card5.setVisibility(View.INVISIBLE);
-                                    if (i < 5) {
-                                        card4.setVisibility(View.INVISIBLE);
-                                        if (i < 4) {
-                                            card3.setVisibility(View.INVISIBLE);
-                                            if (i < 3) {
-                                                card2.setVisibility(View.INVISIBLE);
-                                                if (i < 2) {
-                                                    card1.setVisibility(View.INVISIBLE);
-                                                    if (i < 1) {
-                                                        card0.setVisibility(View.INVISIBLE);
+        if (i < 13) {
+            card12.setVisibility(View.INVISIBLE);
+            if (i < 12) {
+                card11.setVisibility(View.INVISIBLE);
+                if (i < 11) {
+                    card10.setVisibility(View.INVISIBLE);
+                    if (i < 10) {
+                        card9.setVisibility(View.INVISIBLE);
+                        if (i < 9) {
+                            card8.setVisibility(View.INVISIBLE);
+                            if (i < 8) {
+                                card7.setVisibility(View.INVISIBLE);
+                                if (i < 7) {
+                                    card6.setVisibility(View.INVISIBLE);
+                                    if (i < 6) {
+                                        card5.setVisibility(View.INVISIBLE);
+                                        if (i < 5) {
+                                            card4.setVisibility(View.INVISIBLE);
+                                            if (i < 4) {
+                                                card3.setVisibility(View.INVISIBLE);
+                                                if (i < 3) {
+                                                    card2.setVisibility(View.INVISIBLE);
+                                                    if (i < 2) {
+                                                        card1.setVisibility(View.INVISIBLE);
+                                                        if (i < 1) {
+                                                            card0.setVisibility(View.INVISIBLE);
+                                                        }
                                                     }
                                                 }
                                             }
@@ -305,21 +534,103 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
         }
     }
 
-}
-
     public void updateCurrentSet() {
-
+        int i = instance.getCurrentSet().size();
+        if (i > 0) {
+            currentSet0.setVisibility(View.VISIBLE);
+            currentSet0.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(0).getCardName(), "drawable", getPackageName()));
+            if (i > 1) {
+                currentSet1.setVisibility(View.VISIBLE);
+                currentSet1.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(1).getCardName(), "drawable", getPackageName()));
+                if (i > 2) {
+                    currentSet2.setVisibility(View.VISIBLE);
+                    currentSet2.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(2).getCardName(), "drawable", getPackageName()));
+                    if (i > 3) {
+                        currentSet3.setVisibility(View.VISIBLE);
+                        currentSet3.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(3).getCardName(), "drawable", getPackageName()));
+                        if (i > 4) {
+                            currentSet4.setVisibility(View.VISIBLE);
+                            currentSet4.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(4).getCardName(), "drawable", getPackageName()));
+                            if (i > 5) {
+                                currentSet5.setVisibility(View.VISIBLE);
+                                currentSet5.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(5).getCardName(), "drawable", getPackageName()));
+                                if (i > 6) {
+                                    currentSet6.setVisibility(View.VISIBLE);
+                                    currentSet6.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(6).getCardName(), "drawable", getPackageName()));
+                                    if (i > 7) {
+                                        currentSet7.setVisibility(View.VISIBLE);
+                                        currentSet7.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(7).getCardName(), "drawable", getPackageName()));
+                                        if (i > 8) {
+                                            currentSet8.setVisibility(View.VISIBLE);
+                                            currentSet8.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(8).getCardName(), "drawable", getPackageName()));
+                                            if (i > 9) {
+                                                currentSet9.setVisibility(View.VISIBLE);
+                                                currentSet9.setImageResource(getResources().getIdentifier(instance.getCurrentSet().get(9).getCardName(), "drawable", getPackageName()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (i < 10) {
+            currentSet9.setVisibility(View.INVISIBLE);
+            if (i < 9) {
+                currentSet8.setVisibility(View.INVISIBLE);
+                if (i < 8) {
+                    currentSet7.setVisibility(View.INVISIBLE);
+                    if (i < 7) {
+                        currentSet6.setVisibility(View.INVISIBLE);
+                        if (i < 6) {
+                            currentSet5.setVisibility(View.INVISIBLE);
+                            if (i < 5) {
+                                currentSet4.setVisibility(View.INVISIBLE);
+                                if (i < 4) {
+                                    currentSet3.setVisibility(View.INVISIBLE);
+                                    if (i < 3) {
+                                        currentSet2.setVisibility(View.INVISIBLE);
+                                        if (i < 2) {
+                                            currentSet1.setVisibility(View.INVISIBLE);
+                                            if (i < 1) {
+                                                currentSet0.setVisibility(View.INVISIBLE);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    public void updateOpponents(){
-        if (instance.getPlayers().size() < 6) {
+    public void updateOpponents() {
+        int i = instance.getPlayers().size();
+        if (i < 6) {
             fifthPlayer.setVisibility(View.INVISIBLE);
-            if (instance.getPlayers().size() < 5) {
+            if (i < 5) {
                 fourthPlayer.setVisibility(View.INVISIBLE);
-                if (instance.getPlayers().size() < 4) {
+                if (i < 4) {
                     thirdPlayer.setVisibility(View.INVISIBLE);
-                    if (instance.getPlayers().size() < 3) {
+                    if (i < 3) {
                         secondPlayer.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        }
+        numCards1.setText(Integer.toString(instance.getPlayers().get(1).getHand().size()));
+        if (i > 2){
+            numCards2.setText(Integer.toString(instance.getPlayers().get(2).getHand().size()));
+            if (i > 3){
+                numCards3.setText(Integer.toString(instance.getPlayers().get(3).getHand().size()));
+                if (i > 4){
+                    numCards4.setText(Integer.toString(instance.getPlayers().get(4).getHand().size()));
+                    if (i > 5){
+                        numCards5.setText(Integer.toString(instance.getPlayers().get(5).getHand().size()));
                     }
                 }
             }

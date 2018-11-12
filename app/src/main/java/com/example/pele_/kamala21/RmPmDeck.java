@@ -1,6 +1,7 @@
 package com.example.pele_.kamala21;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RmPmDeck {
     private ArrayList<RmPmCard> deck;
@@ -29,6 +30,7 @@ public class RmPmDeck {
                 deck.add(card);
             }
         }
+        Collections.shuffle(deck);
     }
 
     public ArrayList<RmPmCard> getDeck() {

@@ -54,7 +54,7 @@ public class RmPmCard {
         return null;
     }
 
-    public String cardName(){
+    public String getCardName(){
         return this.getFace() +"_" +this.getSuit();
     }
 
