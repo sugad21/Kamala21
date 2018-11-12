@@ -59,6 +59,8 @@ public class spmActivity extends Activity implements  View.OnClickListener{
 
     @Override
     public void onClick(View v){
+        //basic switch statements 
+        //if return button pressed, then starts main menu activity
         switch (v.getId()){
             case R.id.spmReturnButton:
                 Intent mmIntent = new Intent(this, mmActivity.class);
@@ -70,6 +72,7 @@ public class spmActivity extends Activity implements  View.OnClickListener{
                 gameStateRef.setValue(instance);
                 Intent spgsIntent = new Intent(this, spgsActivity.class);
                 startActivity(spgsIntent);
+                //starts game screen layout activity
                 finish();
                 break;
             case R.id.spmIncreaseButton:
@@ -85,6 +88,7 @@ public class spmActivity extends Activity implements  View.OnClickListener{
                     numInt++;
                     numBots.setText(Integer.toString(numInt));
                     numPlayersRef.setValue(Integer.toString(numInt+1));
+                    //adds player to game
                 }
                 break;
             case R.id.spmRemoveButton:
@@ -92,6 +96,7 @@ public class spmActivity extends Activity implements  View.OnClickListener{
                     numInt--;
                     numBots.setText(Integer.toString(numInt));
                     numPlayersRef.setValue(Integer.toString(numInt+1));
+                    //remvoes player from game given parameters
                 }
                 break;
             default:
