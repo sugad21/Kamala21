@@ -101,8 +101,6 @@ public class lmmActivity extends Activity implements  View.OnClickListener{
                 finish();
                 break;
             case R.id.lmmStartServerButton:
-                RmPmGameState instance = new RmPmGameState(numAiInt+numHumanInt+1);
-                gameStateRef.setValue(instance);
                 numHumanRef.setValue(0);
                 Intent lmgsIntent = new Intent(this, lmgsActivity.class);
                 lmgsIntent.putExtra("playerIndex", 0);
