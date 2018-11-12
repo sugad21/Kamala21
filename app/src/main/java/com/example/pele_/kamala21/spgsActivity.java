@@ -142,6 +142,7 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
 
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        //datasnapshot used for multiplayer save gamestate
         instance = dataSnapshot.getValue(RmPmGameState.class);
         updateScreen();
         if(instance.playersWithCards() < 2){
@@ -151,6 +152,7 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
             gameStateRef.setValue(updatedInstance);
             recreate();
         }
+        //calls the dumbAI method in gamestate then sets it
         if(instance.getCurrentPlayer() != playerIndex){
             instance.dumbAi(instance.getCurrentPlayer());
             gameStateRef.setValue(instance);
@@ -164,6 +166,11 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
 
     @Override
     public void onClick(View v) {
+        
+        //basically checks if the given card is highlighted
+        //if it is not, user can highlight
+        //else error if user does not play highlighted
+        //else user can deselect card
         switch (v.getId()) {
             case R.id.card0:
                 if (card0.getColorFilter() == null) {
@@ -455,6 +462,7 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
         });
         int i = instance.getPlayers().get(playerIndex).getHand().size();
         if (i > 0) {
+            //sets each individual card in set 
             card0.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(0).getCardName(), "drawable", getPackageName()));
             if (i > 1) {
                 card1.setImageResource(getResources().getIdentifier(instance.getPlayers().get(playerIndex).getHand().get(1).getCardName(), "drawable", getPackageName()));
@@ -493,6 +501,7 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
                 }
             }
         }
+        //sets card to invisible so can't be edited
         if (i < 13) {
             card12.setVisibility(View.INVISIBLE);
             if (i < 12) {
@@ -535,6 +544,7 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
     }
 
     public void updateCurrentSet() {
+        //sets all cards to visible, so it can be updated
         int i = instance.getCurrentSet().size();
         if (i > 0) {
             currentSet0.setVisibility(View.VISIBLE);
@@ -576,6 +586,7 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
                 }
             }
         }
+        //sets all cards to invisible, so it moves on to next set
         if (i < 10) {
             currentSet9.setVisibility(View.INVISIBLE);
             if (i < 9) {
@@ -609,6 +620,8 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
     }
 
     public void updateOpponents() {
+        //decreases the size of number of players 
+        //sets highest player to invisible 
         int i = instance.getPlayers().size();
         if (i < 6) {
             fifthPlayer.setVisibility(View.INVISIBLE);
@@ -622,6 +635,7 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
                 }
             }
         }
+        //sets int to string
         numCards1.setText(Integer.toString(instance.getPlayers().get(1).getHand().size()));
         if (i > 2){
             numCards2.setText(Integer.toString(instance.getPlayers().get(2).getHand().size()));
@@ -643,6 +657,7 @@ public class spgsActivity extends Activity implements View.OnClickListener, Valu
     }
 
     public void updateScreen() {
+        /
         updateOpponents();
         updateCards();
         updateCurrentSet();
