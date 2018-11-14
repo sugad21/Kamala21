@@ -24,6 +24,7 @@ public class RmPmPlayerInfo {
         hand.add(in);
     }
     public boolean removeCard(RmPmCard in){
+        //removes card in player hand if matches
         if(hand.contains(in)){
             hand.remove(in);
             return true;
