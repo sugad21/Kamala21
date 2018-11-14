@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+    //be able to see all game state attributes on the firebaseDatabase
 
 public class lmwActivity extends Activity implements ValueEventListener {
     int numAiInt;
@@ -49,6 +50,13 @@ public class lmwActivity extends Activity implements ValueEventListener {
         lobbyRef.addValueEventListener(this);
     }
 
+    /*
+    External Citation:
+    Date: 11-9-18
+    Problem: Using NetworkPlay
+    Resource:https://stackoverflow.com/questions/48720599/android-studio-ondatachange.
+    Solution: Example from this gave inspiration.
+     */
     @Override
     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         numAiInt = dataSnapshot.child("numAi").getValue(Integer.class);
