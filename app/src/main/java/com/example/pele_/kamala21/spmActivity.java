@@ -58,6 +58,8 @@ public class spmActivity extends Activity implements  View.OnClickListener{
     }
 
     @Override
+    //available buttons that are on activity
+    //take user to certain one
     public void onClick(View v){
         switch (v.getId()){
             case R.id.spmReturnButton:
