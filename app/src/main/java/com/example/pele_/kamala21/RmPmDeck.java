@@ -32,6 +32,14 @@ public class RmPmDeck {
         }
         Collections.shuffle(deck);
     }
+    
+       /*
+        External Citation:
+        Date: 10-29-18
+        Problem: randomizing objects in array
+        Resource:https://android.okhelp.cz/shuffle-array-int-string-java-android/
+        Solution: Collection.shuffle() method solved it
+         */
 
     public ArrayList<RmPmCard> getDeck() {
         return deck;
