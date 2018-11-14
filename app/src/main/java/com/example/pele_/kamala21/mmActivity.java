@@ -58,6 +58,14 @@ public class mmActivity extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
+    //buttons given access to layouts
+    /*
+    External Citations:
+    Date: 11-10-18
+    Problem: Using intent
+    Resource: https://stackoverflow.com/questions/4186021/how-to-start-new-activity-on-button-click
+    Solution: Now I remember how to use it, bc we learned it in class, but I forgot
+     */
 
     @Override
     public void onClick(View v) {
