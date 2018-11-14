@@ -22,6 +22,8 @@ public class RmPmCard {
         return suit;
     }
 
+        //sets value of each value to a number 0-12 so it can be accessed as such
+
     public String getFace(){
         int temp = this.value;
         if(temp == 0){
@@ -57,7 +59,10 @@ public class RmPmCard {
     public String getCardName(){
         return this.getFace() +"_" +this.getSuit();
     }
-
+    
+        //draws card from hand based parameters
+    //if it is certain suit
+    //checks 7-ace then 3-6 b/c bombs and wilds
     public int getDrawable() {
         switch (this.getFace()){
             case "seven":
